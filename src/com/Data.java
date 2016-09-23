@@ -33,10 +33,43 @@ public class Data {
     private String out_co2="460";
     private String out_humidity="60";
     private String out_windspeed="20";
+    
     private String in_temprature="25";
     private String in_humidity="25";
     private String in_radiation="10000";
-    private String in_co2="420";    
+    private String in_co2="420";
+    
+    private String in2_temprature="25";
+    private String in2_humidity="25";
+    private String in2_radiation="10000";
+    private String in2_co2="420"; 
+    
+    private String in3_temprature="25";
+    private String in3_humidity="25";
+    private String in3_radiation="10000";
+    private String in3_co2="420"; 
+    
+    private String in4_temprature="25";
+    private String in4_humidity="25";
+    private String in4_radiation="10000";
+    private String in4_co2="420"; 
+    
+    private String in5_temprature="25";
+    private String in5_humidity="25";
+    private String in5_radiation="10000";
+    private String in5_co2="420"; 
+    private String in6_temprature="25";
+    private String in6_humidity="25";
+    private String in6_radiation="10000";
+    private String in6_co2="420";
+    private String in7_temprature="25";
+    private String in7_humidity="25";
+    private String in7_radiation="10000";
+    private String in7_co2="420"; 
+    private String in8_temprature="25";
+    private String in8_humidity="25";
+    private String in8_radiation="10000";
+    private String in8_co2="420"; 
     private String winddirection="无";
     private String atmosphere="1000";
     private String rain="false";
@@ -107,10 +140,11 @@ public class Data {
     private String side_vent_open_time="";
     private String shade_screen_out_open_time="";
     private String shade_screen_in_open_time="";
-    private String thermal_screen_open_time="";     
+    private String thermal_screen_open_time="";  
+    static String url="http://127.0.0.1:8020";
     public  void getindoor()
    	{	
-   		String httpurl="http://127.0.0.1:8020/indoor";
+   		String httpurl=url+"/indoor";
    		StringBuffer sb=new StringBuffer();
    		try
    		{
@@ -131,25 +165,64 @@ public class Data {
    		
     	
    			//return sb==null?"error":sb.toString();
-   		JSONObject indoordata=JSONObject.fromObject(sb.toString());
-   		Object indoortemp=indoordata.get("indoor");
+                if(sb!=null)
+                {
+                JSONObject indoordata=JSONObject.fromObject(sb.toString());
+   		JSONObject nodedata1=indoordata.getJSONObject("1");
+                JSONObject nodedata2=indoordata.getJSONObject("2");
+                JSONObject nodedata3=indoordata.getJSONObject("3");
+                JSONObject nodedata4=indoordata.getJSONObject("4");
+                JSONObject nodedata5=indoordata.getJSONObject("5");
+                JSONObject nodedata6=indoordata.getJSONObject("6");
+                JSONObject nodedata7=indoordata.getJSONObject("7");
+                JSONObject nodedata8=indoordata.getJSONObject("8");
+                
+//   		
+   		setIn_temprature(nodedata1.getString("temperature"));
+   		setIn_co2(nodedata1.getString("co2"));
+   		setIn_radiation(nodedata1.getString("radiation"));
+   		setIn_humidity(nodedata1.getString("humidity"));
+                
+                setIn2_temprature(nodedata2.getString("temperature"));
+   		setIn2_co2(nodedata2.getString("co2"));
+   		setIn2_radiation(nodedata2.getString("radiation"));
+   		setIn2_humidity(nodedata2.getString("humidity"));
+                
+                setIn3_temprature(nodedata3.getString("temperature"));
+   		setIn3_co2(nodedata3.getString("co2"));
+   		setIn3_radiation(nodedata3.getString("radiation"));
+   		setIn3_humidity(nodedata3.getString("humidity"));
    		
-   		JSONObject indoortemp2=JSONObject.fromObject(indoortemp);  		
-   		Object indoortemp3=indoortemp2.get("node_0");
-   		
-   		JSONObject nodedata=JSONObject.fromObject(indoortemp3);
-   		
-   		setIn_temprature(nodedata.getString("temperature"));
-   		setIn_co2(nodedata.getString("co2"));
-   		setIn_radiation(nodedata.getString("radiation"));
-   		setIn_humidity(nodedata.getString("humidity"));
-   		
-   		
-   		
+   		setIn4_temprature(nodedata4.getString("temperature"));
+   		setIn4_co2(nodedata4.getString("co2"));
+   		setIn4_radiation(nodedata4.getString("radiation"));
+   		setIn4_humidity(nodedata4.getString("humidity"));
+                
+   		setIn5_temprature(nodedata5.getString("temperature"));
+   		setIn5_co2(nodedata5.getString("co2"));
+   		setIn5_radiation(nodedata5.getString("radiation"));
+   		setIn5_humidity(nodedata5.getString("humidity"));
+                
+                setIn6_temprature(nodedata6.getString("temperature"));
+   		setIn6_co2(nodedata6.getString("co2"));
+   		setIn6_radiation(nodedata6.getString("radiation"));
+   		setIn6_humidity(nodedata6.getString("humidity"));
+                
+                setIn7_temprature(nodedata7.getString("temperature"));
+   		setIn7_co2(nodedata7.getString("co2"));
+   		setIn7_radiation(nodedata7.getString("radiation"));
+   		setIn7_humidity(nodedata7.getString("humidity"));
+                
+                setIn8_temprature(nodedata8.getString("temperature"));
+   		setIn8_co2(nodedata8.getString("co2"));
+   		setIn8_radiation(nodedata8.getString("radiation"));
+   		setIn8_humidity(nodedata8.getString("humidity"));
+                }
+  		
    	}  
     public  void getoutdoor()
    	{	
-   		String httpurl="http://127.0.0.1:8020/outdoor";
+   		String httpurl=url+"/outdoor";
    		StringBuffer sb=new StringBuffer();
    		try
    		{
@@ -171,8 +244,9 @@ public class Data {
    		
     	
    			//return sb==null?"error":sb.toString();
-   		
-   	   		JSONObject outdoordata=JSONObject.fromObject(sb.toString());
+                        if(sb!=null)
+                        {
+                        JSONObject outdoordata=JSONObject.fromObject(sb.toString());
    	   		Object outdoortemp2=outdoordata.get("outdoor");
    	   		JSONObject outdoortemp=JSONObject.fromObject(outdoortemp2);
    	   		setOut_windspeed(outdoortemp.getString("wind_speed"));
@@ -183,11 +257,13 @@ public class Data {
    	   		setOut_radiation(outdoortemp.getString("radiation"));
    	   		setOut_co2(outdoortemp.getString("co2"));
                         setUpdatetime(outdoortemp.getString("update_time"));
+                        }
+   	   		
    		
    	}
     public  void getparameter()
    	{	
-   		String httpurl="http://127.0.0.1:8020/parameter";
+   		String httpurl=url+"/parameter";
    		StringBuffer sb=new StringBuffer();
    		try
    		{
@@ -206,7 +282,9 @@ public class Data {
    			System.out.println(e.toString());
    		}
                         System.out.println(sb.toString());
-                        JSONObject outdoordata=JSONObject.fromObject(sb.toString());
+                        if(sb!=null)
+                        {
+                             JSONObject outdoordata=JSONObject.fromObject(sb.toString());
                         JSONObject plantset=outdoordata.getJSONObject("plant_parameter_setting");
 	   		JSONObject co2set=outdoordata.getJSONObject("co2_parameter_setting");
 	   		JSONObject coolfanset=outdoordata.getJSONObject("cooling_fans");
@@ -270,12 +348,16 @@ public class Data {
 	   		setShade_screen_out_open_time(opencloseset.getString("shade_screen_out_open_time"));
 	   		setShade_screen_in_open_time(opencloseset.getString("shade_screen_in_open_time"));
 	   		setThermal_screen_open_time(opencloseset.getString("thermal_screen_open_time"));
+                        }
+                           
+                            
+                       
                
    		
    	} 
     public  String post_roofsouth_on()
 	{	
-		String httpurl="http://127.0.0.1:8020/control";
+		String httpurl=url+"/control";
 		String command="{\"roof_vent_south\": \"on\"}";
 		StringBuffer sb=new StringBuffer();
 		try
@@ -310,7 +392,7 @@ public class Data {
 	}
     public  String post_roofsouth_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"roof_vent_south\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -345,7 +427,7 @@ public class Data {
   	}
      public  String post_roofsouth_stop()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"roof_vent_south\": \"stop\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -382,7 +464,7 @@ public class Data {
      
     public  String post_roofnorth_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"roof_vent_north\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -417,7 +499,7 @@ public class Data {
   	}
     public  String post_roofnorth_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"roof_vent_north\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -452,7 +534,7 @@ public class Data {
   	}
     public  String post_roofnorth_stop()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"roof_vent_north\": \"stop\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -489,7 +571,7 @@ public class Data {
     
     public  String post_sidevent_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"side_vent\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -524,7 +606,7 @@ public class Data {
   	}
     public  String post_sidevent_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"side_vent\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -559,7 +641,7 @@ public class Data {
   	}
      public  String post_sidevent_stop()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"side_vent\": \"stop\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -596,7 +678,7 @@ public class Data {
      
     public  String post_shade_screen_out_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"shade_screen_out\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -631,7 +713,7 @@ public class Data {
   	}
     public  String post_shade_screen_out_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"shade_screen_out\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -666,7 +748,7 @@ public class Data {
   	}
      public  String post_shade_screen_out_stop()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"shade_screen_out\": \"stop\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -703,7 +785,7 @@ public class Data {
      
     public  String post_shade_screen_in_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"shade_screen_in\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -738,7 +820,7 @@ public class Data {
   	}
     public  String post_shade_screen_in_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"shade_screen_in\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -773,7 +855,7 @@ public class Data {
   	}
     public  String post_shade_screen_in_stop()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"shade_screen_in\": \"stop\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -810,7 +892,7 @@ public class Data {
     
     public  String post_thermal_screen_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"thermal_screen\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -845,7 +927,7 @@ public class Data {
   	}
     public  String post_thermal_screen_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"thermal_screen\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -880,7 +962,7 @@ public class Data {
   	}
     public  String post_thermal_screen_stop()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"thermal_screen\": \"stop\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -917,7 +999,7 @@ public class Data {
     
     public  String post_cooling_pad_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"cooling_pad\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -952,7 +1034,7 @@ public class Data {
   	}
     public  String post_cooling_pad_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"cooling_pad\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -987,7 +1069,7 @@ public class Data {
   	}
     public  String post_fogging_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"fogging\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1022,7 +1104,7 @@ public class Data {
   	}
     public  String post_fogging_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"fogging\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1057,7 +1139,7 @@ public class Data {
   	}
     public  String post_heating_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"heating\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1092,7 +1174,7 @@ public class Data {
   	}
     public  String post_heating_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"heating\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1127,7 +1209,7 @@ public class Data {
   	}
     public  String post_co2_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"co2\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1162,7 +1244,7 @@ public class Data {
   	}
     public  String post_co2_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"co2\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1197,7 +1279,7 @@ public class Data {
   	}
     public  String post_lighting_1_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"lighting_1\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1267,7 +1349,7 @@ public class Data {
   	}
     public  String post_lighting_2_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"lighting_2\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1302,7 +1384,7 @@ public class Data {
   	}
     public  String post_lighting_2_off()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"lighting_2\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1337,7 +1419,7 @@ public class Data {
   	}
     public  String post_irrigation_on()
   	{	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"irrigation\": \"on\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1372,7 +1454,7 @@ public class Data {
   	}
     public  String post_irrigation_off()
             {	
-  		String httpurl="http://127.0.0.1:8020/control";
+  		String httpurl=url+"/control";
   		String command="{\"irrigation\": \"off\"}";
   		StringBuffer sb=new StringBuffer();
   		try
@@ -1408,7 +1490,7 @@ public class Data {
     
     public void postParameter(String s)
    	{	
-   		String httpurl="http://127.0.0.1:8020/parameter";
+   		String httpurl=url+"parameter";
    		String command=s;
    		StringBuffer sb=new StringBuffer();
    		try
@@ -1441,7 +1523,7 @@ public class Data {
    	}
     public  void getcontrolstate()
    	{	
-   		String httpurl="http://127.0.0.1:8020/control";
+   		String httpurl=url+"/control";
    		StringBuffer sb=new StringBuffer();
    		try
    		{
@@ -1468,16 +1550,16 @@ public class Data {
    	   		setRoof_vent_south(change(tri.getString("roof_vent_south")));
    	   		setRoof_vent_north(change(tri.getString("roof_vent_north")));
    	   		setSide_vent(change(tri.getString("side_vent")));
-   	   		setShade_screen_out(change(tri.getString("shade_screen_out")));
-   	   		setShade_screen_in(change(tri.getString("shade_screen_in")));
+   	   		setShade_screen_out(change(tri.getString("shade_screen_south")));
+   	   		setShade_screen_in(change(tri.getString("shade_screen_north")));
    	   		setThermal_screen(change(tri.getString("thermal_screen")));
-   	   		setCooling_pad(change(bi.getString("cooling_pad")));
+   	   		setCooling_pad(change(bi.getString("cooling_fan")));
    	   		setFogging(change(bi.getString("fogging")));
    	   		setHeating(change(bi.getString("heating")));
    	   		setCo2(change(bi.getString("co2")));
    	   		setLighting_1(change(bi.getString("lighting_1")));
    	   		setLighting_2(change(bi.getString("lighting_2")));
-   	   		setIrrigation(change(bi.getString("irrigation")));
+//   	   		setIrrigation(change(bi.getString("irrigation")));
    	}
     public  String change(String s)
    {	
@@ -2578,6 +2660,398 @@ public class Data {
      */
     public void setThermal_screen_open_time(String thermal_screen_open_time) {
         this.thermal_screen_open_time = thermal_screen_open_time;
+    }
+
+    /**
+     * @return the in2_temprature
+     */
+    public String getIn2_temprature() {
+        return in2_temprature;
+    }
+
+    /**
+     * @param in2_temprature the in2_temprature to set
+     */
+    public void setIn2_temprature(String in2_temprature) {
+        this.in2_temprature = in2_temprature;
+    }
+
+    /**
+     * @return the in2_humidity
+     */
+    public String getIn2_humidity() {
+        return in2_humidity;
+    }
+
+    /**
+     * @param in2_humidity the in2_humidity to set
+     */
+    public void setIn2_humidity(String in2_humidity) {
+        this.in2_humidity = in2_humidity;
+    }
+
+    /**
+     * @return the in2_radiation
+     */
+    public String getIn2_radiation() {
+        return in2_radiation;
+    }
+
+    /**
+     * @param in2_radiation the in2_radiation to set
+     */
+    public void setIn2_radiation(String in2_radiation) {
+        this.in2_radiation = in2_radiation;
+    }
+
+    /**
+     * @return the in2_co2
+     */
+    public String getIn2_co2() {
+        return in2_co2;
+    }
+
+    /**
+     * @param in2_co2 the in2_co2 to set
+     */
+    public void setIn2_co2(String in2_co2) {
+        this.in2_co2 = in2_co2;
+    }
+
+    /**
+     * @return the in3_temprature
+     */
+    public String getIn3_temprature() {
+        return in3_temprature;
+    }
+
+    /**
+     * @param in3_temprature the in3_temprature to set
+     */
+    public void setIn3_temprature(String in3_temprature) {
+        this.in3_temprature = in3_temprature;
+    }
+
+    /**
+     * @return the in3_humidity
+     */
+    public String getIn3_humidity() {
+        return in3_humidity;
+    }
+
+    /**
+     * @param in3_humidity the in3_humidity to set
+     */
+    public void setIn3_humidity(String in3_humidity) {
+        this.in3_humidity = in3_humidity;
+    }
+
+    /**
+     * @return the in3_radiation
+     */
+    public String getIn3_radiation() {
+        return in3_radiation;
+    }
+
+    /**
+     * @param in3_radiation the in3_radiation to set
+     */
+    public void setIn3_radiation(String in3_radiation) {
+        this.in3_radiation = in3_radiation;
+    }
+
+    /**
+     * @return the in3_co2
+     */
+    public String getIn3_co2() {
+        return in3_co2;
+    }
+
+    /**
+     * @param in3_co2 the in3_co2 to set
+     */
+    public void setIn3_co2(String in3_co2) {
+        this.in3_co2 = in3_co2;
+    }
+
+    /**
+     * @return the in4_temprature
+     */
+    public String getIn4_temprature() {
+        return in4_temprature;
+    }
+
+    /**
+     * @param in4_temprature the in4_temprature to set
+     */
+    public void setIn4_temprature(String in4_temprature) {
+        this.in4_temprature = in4_temprature;
+    }
+
+    /**
+     * @return the in4_humidity
+     */
+    public String getIn4_humidity() {
+        return in4_humidity;
+    }
+
+    /**
+     * @param in4_humidity the in4_humidity to set
+     */
+    public void setIn4_humidity(String in4_humidity) {
+        this.in4_humidity = in4_humidity;
+    }
+
+    /**
+     * @return the in4_radiation
+     */
+    public String getIn4_radiation() {
+        return in4_radiation;
+    }
+
+    /**
+     * @param in4_radiation the in4_radiation to set
+     */
+    public void setIn4_radiation(String in4_radiation) {
+        this.in4_radiation = in4_radiation;
+    }
+
+    /**
+     * @return the in4_co2
+     */
+    public String getIn4_co2() {
+        return in4_co2;
+    }
+
+    /**
+     * @param in4_co2 the in4_co2 to set
+     */
+    public void setIn4_co2(String in4_co2) {
+        this.in4_co2 = in4_co2;
+    }
+
+    /**
+     * @return the in5_temprature
+     */
+    public String getIn5_temprature() {
+        return in5_temprature;
+    }
+
+    /**
+     * @param in5_temprature the in5_temprature to set
+     */
+    public void setIn5_temprature(String in5_temprature) {
+        this.in5_temprature = in5_temprature;
+    }
+
+    /**
+     * @return the in5_humidity
+     */
+    public String getIn5_humidity() {
+        return in5_humidity;
+    }
+
+    /**
+     * @param in5_humidity the in5_humidity to set
+     */
+    public void setIn5_humidity(String in5_humidity) {
+        this.in5_humidity = in5_humidity;
+    }
+
+    /**
+     * @return the in5_radiation
+     */
+    public String getIn5_radiation() {
+        return in5_radiation;
+    }
+
+    /**
+     * @param in5_radiation the in5_radiation to set
+     */
+    public void setIn5_radiation(String in5_radiation) {
+        this.in5_radiation = in5_radiation;
+    }
+
+    /**
+     * @return the in5_co2
+     */
+    public String getIn5_co2() {
+        return in5_co2;
+    }
+
+    /**
+     * @param in5_co2 the in5_co2 to set
+     */
+    public void setIn5_co2(String in5_co2) {
+        this.in5_co2 = in5_co2;
+    }
+
+    /**
+     * @return the in6_temprature
+     */
+    public String getIn6_temprature() {
+        return in6_temprature;
+    }
+
+    /**
+     * @param in6_temprature the in6_temprature to set
+     */
+    public void setIn6_temprature(String in6_temprature) {
+        this.in6_temprature = in6_temprature;
+    }
+
+    /**
+     * @return the in6_humidity
+     */
+    public String getIn6_humidity() {
+        return in6_humidity;
+    }
+
+    /**
+     * @param in6_humidity the in6_humidity to set
+     */
+    public void setIn6_humidity(String in6_humidity) {
+        this.in6_humidity = in6_humidity;
+    }
+
+    /**
+     * @return the in6_radiation
+     */
+    public String getIn6_radiation() {
+        return in6_radiation;
+    }
+
+    /**
+     * @param in6_radiation the in6_radiation to set
+     */
+    public void setIn6_radiation(String in6_radiation) {
+        this.in6_radiation = in6_radiation;
+    }
+
+    /**
+     * @return the in6_co2
+     */
+    public String getIn6_co2() {
+        return in6_co2;
+    }
+
+    /**
+     * @param in6_co2 the in6_co2 to set
+     */
+    public void setIn6_co2(String in6_co2) {
+        this.in6_co2 = in6_co2;
+    }
+
+    /**
+     * @return the in7_temprature
+     */
+    public String getIn7_temprature() {
+        return in7_temprature;
+    }
+
+    /**
+     * @param in7_temprature the in7_temprature to set
+     */
+    public void setIn7_temprature(String in7_temprature) {
+        this.in7_temprature = in7_temprature;
+    }
+
+    /**
+     * @return the in7_humidity
+     */
+    public String getIn7_humidity() {
+        return in7_humidity;
+    }
+
+    /**
+     * @param in7_humidity the in7_humidity to set
+     */
+    public void setIn7_humidity(String in7_humidity) {
+        this.in7_humidity = in7_humidity;
+    }
+
+    /**
+     * @return the in7_radiation
+     */
+    public String getIn7_radiation() {
+        return in7_radiation;
+    }
+
+    /**
+     * @param in7_radiation the in7_radiation to set
+     */
+    public void setIn7_radiation(String in7_radiation) {
+        this.in7_radiation = in7_radiation;
+    }
+
+    /**
+     * @return the in7_co2
+     */
+    public String getIn7_co2() {
+        return in7_co2;
+    }
+
+    /**
+     * @param in7_co2 the in7_co2 to set
+     */
+    public void setIn7_co2(String in7_co2) {
+        this.in7_co2 = in7_co2;
+    }
+
+    /**
+     * @return the in8_temprature
+     */
+    public String getIn8_temprature() {
+        return in8_temprature;
+    }
+
+    /**
+     * @param in8_temprature the in8_temprature to set
+     */
+    public void setIn8_temprature(String in8_temprature) {
+        this.in8_temprature = in8_temprature;
+    }
+
+    /**
+     * @return the in8_humidity
+     */
+    public String getIn8_humidity() {
+        return in8_humidity;
+    }
+
+    /**
+     * @param in8_humidity the in8_humidity to set
+     */
+    public void setIn8_humidity(String in8_humidity) {
+        this.in8_humidity = in8_humidity;
+    }
+
+    /**
+     * @return the in8_radiation
+     */
+    public String getIn8_radiation() {
+        return in8_radiation;
+    }
+
+    /**
+     * @param in8_radiation the in8_radiation to set
+     */
+    public void setIn8_radiation(String in8_radiation) {
+        this.in8_radiation = in8_radiation;
+    }
+
+    /**
+     * @return the in8_co2
+     */
+    public String getIn8_co2() {
+        return in8_co2;
+    }
+
+    /**
+     * @param in8_co2 the in8_co2 to set
+     */
+    public void setIn8_co2(String in8_co2) {
+        this.in8_co2 = in8_co2;
     }
     
     
